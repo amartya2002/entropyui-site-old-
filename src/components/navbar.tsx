@@ -3,6 +3,9 @@ import { FaBars, FaGithub, FaTwitter } from "react-icons/fa";
 
 import { useState, useEffect, useRef } from "react";
 
+interface ModalProps {
+  closeModal: (arg: boolean) => void;
+}
 
 function Navbar() {
   const [openModal, setOpenModal] = useState(false);
@@ -107,12 +110,12 @@ function Navbar() {
   );
 }
 
-function Modal({ closeModal }) {
-  const overlayRef = useRef(null);
+function Modal({ closeModal }: ModalProps) {
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (overlayRef.current && !overlayRef.current.contains(event.target)) {
+    function handleClickOutside(event: MouseEvent) {
+      if (overlayRef.current && !overlayRef.current.contains(event.target as Node)) {
         closeModal(false);
       }
     }
